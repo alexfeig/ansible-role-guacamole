@@ -1,0 +1,53 @@
+---
+- name: Creating guacamole configuration directory
+  file:
+    path: /etc/guacamole
+    state: directory
+  become: true
+- name: Symlinking guacamole configuration directory
+  file:
+    src: /etc/guacamole
+    dest: /usr/share/tomcat8/.guacamole
+    state: link
+  become: true
+- name: Creating guacamole lib directory
+  file:
+    path: /etc/guacamole/lib
+    state: directory
+  become: true
+- name: Retrieving mysql-connector-java-{{ mysql_java_client_version }}.tar.gz
+  get_url:
+    url: https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-{{ mysql_java_client_version }}.tar.gz
+    dest: /tmp/
+  become: true
+- name: Unarchiving mysql-connector-java-{{ mysql_java_client_version }}.tar.gz
+  unarchive:
+    src: /tmp/mysql-connector-java-{{ mysql_java_client_version }}.tar.gz
+    dest: /tmp/
+    copy: no
+- name: Creating guacamole extensions directory
+  file:
+    path: /etc/guacamole/extensions
+    state: directory
+  become: true
+- name: Copying mysql-connector-java-{{ mysql_java_client_version }}-bin.jar
+  copy:
+    src: /tmp/mysql-connector-java-{{ mysql_java_client_version }}/mysql-connector-java-{{ mysql_java_client_version }}-bin.jar
+    dest: /etc/guacamole/lib/
+    remote_src: yes
+  become: true
+- name: Retrieving guacamole-auth-jdbc-{{ guacamole_version }}
+  get_url:
+    url: http://apache.org/dyn/closer.cgi?action=download&filename=incubator/guacamole/{{ guacamole_version }}/binary/guacamole-auth-jdbc-{{ guacamole_version }}.tar.gz
+    dest: /tmp/
+- name: Unarchiving guacamole-auth-jdbc-{{ guacamole_version }}
+  unarchive:
+    src: /tmp/guacamole-auth-jdbc-{{ guacamole_version }}.tar.gz
+    dest: /tmp/
+    copy: no
+- name: Copying guacamole-auth-jdbc-mysql-{{ guacamole_version }}.jar
+  copy:
+    src: /tmp/guacamole-auth-jdbc-{{ guacamole_version }}/mysql/guacamole-auth-jdbc-mysql-{{ guacamole_version }}.jar
+    dest: /etc/guacamole/extensions/
+    remote_src: yes
+  become: true

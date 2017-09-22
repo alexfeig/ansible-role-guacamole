@@ -1,0 +1,6 @@
+---
+- import_tasks: install_packages.yml
+- import_tasks: install_guacamole_server.yml
+- import_tasks: install_guacamole_client.yml
+- import_tasks: install_guacamole_mysql_authentication.yml
+- import_tasks: configure_guacamole.yml

@@ -1,0 +1,6 @@
+---
+- name: Retrieving guacamole-{{ guacamole_version }}.war
+  get_url:
+    url: http://apache.org/dyn/closer.cgi?action=download&filename=incubator/guacamole/{{ guacamole_version }}/binary/guacamole-{{ guacamole_version }}.war
+    dest: /var/lib/tomcat8/webapps/guacamole.war
+  become: true

@@ -1,0 +1,59 @@
+---
+- name: Checking if database {{ guacamole_db_name }} exists
+  shell: mysql -e 'SHOW DATABASES;' | grep {{ guacamole_db_name }}
+  register: database_status
+  become: true
+  changed_when: false
+  failed_when: false
+- name: Creating guacamole database
+  mysql_db:
+    name: "{{ guacamole_db_name }}"
+    state: present
+  become: true
+  when: database_status.stdout == ""
+- name: Creating mysql user {{ guacamole_db_user }}
+  mysql_user:
+    name: "{{ guacamole_db_user }}"
+    password: "{{ guacamole_db_password }}"
+    priv: '{{ guacamole_db_name }}.*:SELECT,INSERT,UPDATE,DELETE'
+    host: localhost
+    state: present
+  become:  true
+- name: Importing guacamole schema
+  mysql_db:
+    state: import
+    name: "{{ guacamole_db_name }}"
+    target: /tmp/guacamole-auth-jdbc-{{ guacamole_version }}/mysql/schema/001-create-schema.sql
+  become: true
+  when: database_status.stdout == ""
+- name: Importing guacamole user 'guacadmin'
+  mysql_db:
+    state: import
+    name: "{{ guacamole_db_name }}"
+    target: /tmp/guacamole-auth-jdbc-{{ guacamole_version }}/mysql/schema/002-create-admin-user.sql
+  become: true
+  when: database_status.stdout == ""
+- name: Creating guacamole.properties file
+  template:
+    src: guacamole.properties.j2
+    dest: /etc/guacamole/guacamole.properties
+  become: true
+- name: Enabling guacd service
+  systemd:
+    name: guacd
+    enabled: yes
+    state: started
+  become: true
+- name: Restarting tomcat8
+  systemd:
+    name: tomcat8
+    state: restarted
+    enabled: true
+  become: true
+  changed_when: false
+- name: Enabling Guacamole service
+  systemd:
+    name: guacd
+    state: started
+    enabled: yes
+  become: true

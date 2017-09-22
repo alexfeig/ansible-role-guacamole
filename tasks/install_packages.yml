@@ -1,0 +1,14 @@
+---
+- name: Upgrading aptitude version
+  apt:
+    name: aptitude
+  become: 'true'
+- name: Updating apt repos
+  apt:
+    update_cache: 'yes'
+  become: 'true'
+  changed_when: false
+- name: Installing required packages
+  action: apt pkg={{ item }} state=present
+  with_items: "{{ guacamole_apt_install }}"
+  become: 'true'

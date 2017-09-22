@@ -1,0 +1,20 @@
+galaxy_info:
+  author: Alex Feigenson (alexfeig)
+  description: Ansible role for installing Apache Guacamole on Ubuntu 16.04 with MariaDB for authentication
+  license: MIT
+  min_ansible_version: 2.4
+  platforms:
+    - name: Ubuntu
+      versions:
+        - xenial
+
+  galaxy_tags:
+    - guacamole
+    - tomcat
+    - rdp
+    - vnc
+    - telnet
+    - ssh
+    - mariadb
+
+dependencies: []
