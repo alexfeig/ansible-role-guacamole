@@ -20,8 +20,8 @@ The following variables are set in `defaults/main`:
 | Variable                 | Description                  | Default                      |
 |--------------------------|------------------------------|-------------------------------
 |guacamole_version         | Guacamole version to install | currently `0.9.13-incubating`|
-|guacamole_db_user         | Guacamole MariaDB username,  | `guacamole`                  |
-|guacamole_db_password     | Guacamole MariaDB password,  | `foo1234!`                   |
+|guacamole_db_user         | Guacamole MariaDB username   | `guacamole`                  |
+|guacamole_db_password     | Guacamole MariaDB password   | `foo`                        |
 |guacamole_db_name         | Guacamole MariaDB database   | `guacamole_db`               |
 |mysql_java_client_version | MySQL Java Client version    | `5.1.44`                     |
 |guacamole_apt_install     | Apt packages to install      | Lots!                        |
