@@ -19,7 +19,7 @@ The following variables are set in `defaults/main`:
 
 | Variable                 | Description                  | Default                      |
 |--------------------------|------------------------------|-------------------------------
-|guacamole_version         | Guacamole version to install | `currently 0.9.13-incubating`|
+|guacamole_version         | Guacamole version to install | currently `0.9.13-incubating`|
 |guacamole_db_user         | Guacamole MariaDB username,  | `guacamole`                  |
 |guacamole_db_password     | Guacamole MariaDB password,  | `foo1234!`                   |
 |guacamole_db_name         | Guacamole MariaDB database   | `guacamole_db`               |
@@ -47,5 +47,5 @@ To Do List
 ------------------
 
 * Maybe add in an nginx proxy
-* Optional MariaDB install
+* Make MariaDB an optional install
 * Add travis integration (need to account for 16.04)
