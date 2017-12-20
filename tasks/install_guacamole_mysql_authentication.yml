@@ -38,7 +38,7 @@
   become: true
 - name: Retrieving guacamole-auth-jdbc-{{ guacamole_version }}
   get_url:
-    url: http://apache.org/dyn/closer.cgi?action=download&filename=incubator/guacamole/{{ guacamole_version }}/binary/guacamole-auth-jdbc-{{ guacamole_version }}.tar.gz
+    url: http://apache.org/dyn/closer.cgi?action=download&filename=guacamole/{{ guacamole_version }}/binary/guacamole-auth-jdbc-{{ guacamole_version }}.tar.gz
     dest: /tmp/
 - name: Unarchiving guacamole-auth-jdbc-{{ guacamole_version }}
   unarchive:
