@@ -35,7 +35,8 @@ Example Playbook
 ```
 - hosts: guacamole-host
   become: yes
-  roles: alexfeig.ansible-role-guacamole
+  roles: 
+    - alexfeig.guacamole
 ```
 
  Information
